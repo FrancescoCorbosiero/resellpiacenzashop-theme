@@ -13,62 +13,20 @@ function shoptimizer_child_enqueue_styles() {
 // Your custom code goes below this line
 // ============================================
 
-// 1. Register custom product fields
-add_action('init', 'register_enhanced_product_fields');
-function register_enhanced_product_fields() {
-    $fields = array(
-        '_custom_material_composition',
-        '_custom_sizing_guide',
-        '_custom_fit_type',
-        '_custom_style_notes',
-        '_custom_colorway',
-        '_custom_gender_target'
-    );
-    
-    foreach ($fields as $field) {
-        register_meta('product', $field, array(
-            'type' => 'string',
-            'single' => true,
-            'show_in_rest' => true,
-        ));
-    }
+/**
+ * Load modular components
+ * Clean, organized structure for maintainability
+ */
+$rps_inc_dir = get_stylesheet_directory() . '/inc/';
+
+if (file_exists($rps_inc_dir . 'config.php')) {
+    require_once $rps_inc_dir . 'config.php';
 }
 
-// 2. Output enhanced schema
-add_action('wp_head', 'output_enhanced_product_schema', 20);
-function output_enhanced_product_schema() {
-    if (!is_product()) return;
+if (file_exists($rps_inc_dir . 'frontend-display.php')) {
+    require_once $rps_inc_dir . 'frontend-display.php';
+}
 
-    // Safe product retrieval
-    $product = wc_get_product();
-    if (!$product) return;
-
-    $product_id = $product->get_id();
-    
-    $material = get_post_meta($product_id, '_custom_material_composition', true);
-    $sizing = get_post_meta($product_id, '_custom_sizing_guide', true);
-    $colorway = get_post_meta($product_id, '_custom_colorway', true);
-    
-    $schema = array(
-        '@context' => 'https://schema.org/',
-        '@type' => 'Product',
-        '@id' => get_permalink($product_id) . '#enhanced',
-    );
-    
-    if ($material) $schema['material'] = $material;
-    if ($colorway) $schema['color'] = $colorway;
-    
-    if ($sizing) {
-        $schema['additionalProperty'] = array(array(
-            '@type' => 'PropertyValue',
-            'name' => 'Sizing Guide',
-            'value' => $sizing
-        ));
-    }
-    
-    if (count($schema) > 3) {
-        echo '<script type="application/ld+json">';
-        echo json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        echo '</script>';
-    }
+if (file_exists($rps_inc_dir . 'rankmath-integration.php')) {
+    require_once $rps_inc_dir . 'rankmath-integration.php';
 }
