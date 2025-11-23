@@ -1,0 +1,71 @@
+# ============================================
+# RESELLPIACENZA GIT CONFIGURATION
+# Track: Custom theme code, SEO enhancements
+# Ignore: WordPress core, products, uploads
+# ============================================
+
+# ===== NEVER TRACK SENSITIVE DATA =====
+wp-config.php
+.env
+.env.*
+*.sql
+*.sql.gz
+database-backup-*.sql
+
+# ===== IGNORE WORDPRESS CORE =====
+# (You're not modifying core, no need to track)
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/xmlrpc.php
+/license.txt
+/readme.html
+
+# ===== IGNORE ALL PLUGINS =====
+# (Managed via Composer or manual install)
+/wp-content/plugins/
+!/wp-content/plugins/.gitkeep
+
+# Exception: If you write a CUSTOM plugin, track it:
+# !/wp-content/plugins/resellpiacenza-custom/
+
+# ===== IGNORE ALL THEMES EXCEPT YOURS =====
+/wp-content/themes/*/
+!/wp-content/themes/shoptimizer-child/
+
+# ===== IGNORE UPLOADS (PRODUCTS, MEDIA) =====
+# This is critical - don't version control 1000s of sneaker images
+/wp-content/uploads/
+!/wp-content/uploads/.gitkeep
+
+# ===== IGNORE CACHE & TEMP FILES =====
+/wp-content/cache/
+/wp-content/backup*/
+/wp-content/upgrade/
+/wp-content/w3tc*/
+/wp-content/et-cache/
+*.log
+
+# ===== IGNORE NODE MODULES (if using any) =====
+node_modules/
+package-lock.json
+yarn.lock
+
+# ===== IGNORE SYSTEM FILES =====
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-*
+
+# ===== IGNORE BUILD ARTIFACTS =====
+*.min.js
+*.min.css
+# (Unless you want to track minified versions)
+
+# ===== KEEP THESE STRUCTURE FILES =====
+!.gitkeep
+!.htaccess
