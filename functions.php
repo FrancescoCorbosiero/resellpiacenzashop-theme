@@ -38,8 +38,11 @@ function register_enhanced_product_fields() {
 add_action('wp_head', 'output_enhanced_product_schema', 20);
 function output_enhanced_product_schema() {
     if (!is_product()) return;
-    
-    global $product;
+
+    // Safe product retrieval
+    $product = wc_get_product();
+    if (!$product) return;
+
     $product_id = $product->get_id();
     
     $material = get_post_meta($product_id, '_custom_material_composition', true);
