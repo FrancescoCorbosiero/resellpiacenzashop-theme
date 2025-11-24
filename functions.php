@@ -27,11 +27,11 @@ if (file_exists($rps_inc_dir . 'config.php')) {
 if (file_exists($rps_inc_dir . 'frontend-display.php')) {
     require_once $rps_inc_dir . 'frontend-display.php';
 }
-
+/*
 if (file_exists($rps_inc_dir . 'rankmath-integration.php')) {
     require_once $rps_inc_dir . 'rankmath-integration.php';
 }
 
 if (file_exists($rps_inc_dir . 'menu-setup.php')) {
     require_once $rps_inc_dir . 'menu-setup.php';
-}
+}*/
